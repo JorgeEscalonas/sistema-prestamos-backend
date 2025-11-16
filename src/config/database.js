@@ -22,12 +22,14 @@ export const connectDB = async () => {
     await sequelize.authenticate();
     console.log("✅ Conexión a MySQL establecida correctamente.");
 
+    /*
     // Crea las tablas automáticamente
     await sequelize.sync({
       alter: true,
     });
 
     console.log("🗂️ Tablas sincronizadas correctamente.");
+    */
   } catch (error) {
     console.error("❌ Error al conectar a MySQL:", error);
     process.exit(1);
