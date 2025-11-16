@@ -2,6 +2,9 @@
 import dotenv from "dotenv";
 dotenv.config();
 
+
+// Importar modelos y relaciones antes de conectar la base de datos
+import "./src/models/index.js";
 import app from "./src/app.js";
 import { connectDB } from "./src/config/database.js";
 
