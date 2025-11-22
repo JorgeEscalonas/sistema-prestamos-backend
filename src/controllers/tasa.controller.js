@@ -1,5 +1,5 @@
 // src/controllers/tasa.controller.js
-import Tasa from "../models/tasa.model.js";
+import { Tasa } from "../models/index.js";
 
 // Crear una nueva tasa
 export const crearTasa = async (req, res, next) => {

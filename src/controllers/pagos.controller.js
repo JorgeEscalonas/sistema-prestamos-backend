@@ -1,6 +1,5 @@
 // controllers/payment.controller.js
-import Pago from "../models/pago.model.js";
-import Prestamo from "../models/prestamo.model.js";
+import { Pago, Prestamo } from "../models/index.js";
 
 export const crearPago = async (req, res) => {
   try {
