@@ -24,7 +24,7 @@ export const connectDB = async () => {
 
     // Crea las tablas automáticamente
     await sequelize.sync({
-      alter: true,
+      alter: true, // Modifica las tablas existentes para que coincidan con los modelos
     });
 
     console.log("🗂️ Tablas sincronizadas correctamente.");
