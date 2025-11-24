@@ -1,17 +1,19 @@
 import { Router } from "express";
-import { 
-  crearPago, 
-  obtenerPagosPorPrestamo, 
+import {
+  crearPago,
+  obtenerPagosPorPrestamo,
   obtenerTodosPagos,
   obtenerPagoPorId,
   actualizarPago,
   eliminarPago
 } from "../controllers/pagos.controller.js";
+import { pagoValidator } from "../validators/pago.validator.js";
+import { handleValidation } from "../middlewares/handleValidation.js";
 
 const router = Router();
 
 // Crear pago
-router.post("/", crearPago);
+router.post("/", pagoValidator, handleValidation, crearPago);
 
 // Obtener todos los pagos
 router.get("/", obtenerTodosPagos);
