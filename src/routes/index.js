@@ -1,5 +1,4 @@
 import { Router } from "express";
-
 import authRouter from "./auth.routes.js";
 import clienteRouter from "./cliente.routes.js";
 import tasaRouter from "./tasa.routes.js";
