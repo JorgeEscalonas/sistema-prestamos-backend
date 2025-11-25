@@ -1,7 +1,5 @@
 // src/controllers/prestamo.controller.js
-import Prestamo from "../models/prestamo.model.js";
-import Cliente from "../models/cliente.model.js";
-import Tasa from "../models/tasa.model.js";
+import { Prestamo, Cliente, Tasa } from "../models/index.js";
 
 // Crear préstamo
 export const crearPrestamo = async (req, res, next) => {

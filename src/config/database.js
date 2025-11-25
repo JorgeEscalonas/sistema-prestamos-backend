@@ -22,6 +22,7 @@ export const connectDB = async () => {
     await sequelize.authenticate();
     console.log("✅ Conexión a MySQL establecida correctamente.");
 
+    
     // Crea las tablas automáticamente
     await sequelize.sync({
       alter: true, // Modifica las tablas existentes para que coincidan con los modelos
