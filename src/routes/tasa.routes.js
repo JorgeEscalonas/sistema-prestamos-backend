@@ -148,10 +148,11 @@ import {
 } from "../controllers/tasa.controller.js";
 import { tasaValidator } from "../validators/tasa.validator.js";
 import { handleValidation } from "../middlewares/handleValidation.js";
+import { authenticate } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-// router.use(authenticate); // Si quieres proteger con JWT
+router.use(authenticate);
 
 router.post("/", tasaValidator, handleValidation, crearTasa);
 router.get("/", obtenerTasas);

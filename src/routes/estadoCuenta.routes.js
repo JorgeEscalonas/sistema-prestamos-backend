@@ -121,8 +121,11 @@ import {
   getPrestamosPagados,
   getTotalesGenerales,
 } from "../controllers/estadoCuenta.controller.js";
+import { authenticate } from "../middlewares/auth.middleware.js";
 
 const router = Router();
+
+router.use(authenticate);
 
 router.get("/pendientes", getPrestamosPendientes);
 router.get("/pagados", getPrestamosPagados);

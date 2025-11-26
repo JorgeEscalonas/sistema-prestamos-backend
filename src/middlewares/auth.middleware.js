@@ -2,20 +2,20 @@
 import { verifyAccessToken } from "../utils/token.util.js";
 
 export const authenticate = (req, res, next) => {
-    try {
-        const authHeader = req.headers.authorization;
-        if (!authHeader || !authHeader.startsWith("Bearer ")) {
-            return res.status(401).json({ message: "No autorizado - token faltante" });
-        }
-
-        const token = authHeader.split(" ")[1];
-        const decoded = verifyAccessToken(token);
-
-        res.user = decoded
-        return next()
-    } catch (err) {
-        return res.status(401).json({ message: "No autorizado - token inválido", error: err.message });
+  try {
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith("Bearer ")) {
+      return res.status(401).json({ message: "No autorizado - token faltante" });
     }
+
+    const token = authHeader.split(" ")[1];
+    const decoded = verifyAccessToken(token);
+
+    req.user = decoded
+    return next()
+  } catch (err) {
+    return res.status(401).json({ message: "No autorizado - token inválido", error: err.message });
+  }
 }
 
 // middleware para roles

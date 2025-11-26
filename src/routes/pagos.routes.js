@@ -255,8 +255,11 @@ import {
 } from "../controllers/pagos.controller.js";
 import { pagoValidator } from "../validators/pago.validator.js";
 import { handleValidation } from "../middlewares/handleValidation.js";
+import { authenticate } from "../middlewares/auth.middleware.js";
 
 const router = Router();
+
+router.use(authenticate);
 
 router.post("/", pagoValidator, handleValidation, crearPago);
 router.get("/", obtenerTodosPagos);
