@@ -1,5 +1,6 @@
 import { Router } from "express";
 import authRouter from "./auth.routes.js";
+import usuarioRouter from "./usuario.routes.js";
 import clienteRouter from "./cliente.routes.js";
 import tasaRouter from "./tasa.routes.js";
 import prestamoRouter from "./prestamo.routes.js";
@@ -10,6 +11,7 @@ import pdfRoutes from "./pdf.routes.js";
 const router = Router();
 
 router.use("/auth", authRouter);
+router.use("/usuarios", usuarioRouter);
 
 router.get("/", (req, res) => {
     res.json({ message: "API funcionando correctamente" });
