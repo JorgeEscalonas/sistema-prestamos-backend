@@ -196,8 +196,11 @@ import {
 } from "../controllers/prestamo.controller.js";
 import { prestamoValidator } from "../validators/prestamo.validator.js";
 import { handleValidation } from "../middlewares/handleValidation.js";
+import { authenticate } from "../middlewares/auth.middleware.js";
 
 const router = Router();
+
+router.use(authenticate);
 
 router.post("/", prestamoValidator, handleValidation, crearPrestamo);
 router.get("/", obtenerPrestamos);

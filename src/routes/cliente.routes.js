@@ -173,11 +173,11 @@ import {
 } from "../controllers/cliente.controller.js";
 import { clienteValidator } from "../validators/cliente.validator.js";
 import { handleValidation } from "../middlewares/handleValidation.js";
-// import { authenticate } from "../middlewares/auth.middleware.js";
+import { authenticate } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-// router.use(authenticate); // ← Activa si quieres proteger todo
+router.use(authenticate); // ← Activa si quieres proteger todo
 
 router.post("/", clienteValidator, handleValidation, crearCliente);
 router.get("/", obtenerClientes);

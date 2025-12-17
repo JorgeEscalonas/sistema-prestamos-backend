@@ -18,6 +18,7 @@ El objetivo del sistema es proporcionar una API sólida, segura y escalable que 
   - Tasas del dólar
   - Préstamos
   - Pagos
+  - Usuarios (Solo Admin)
 - **Reglas automáticas de negocio**:
   - Cálculo automático de intereses
   - Actualización automática del estado del préstamo
@@ -292,6 +293,16 @@ POST /api/pagos
 | GET | `/pdf/pendientes` | PDF de préstamos pendientes | JWT |
 | GET | `/pdf/pagados` | PDF de préstamos pagados | JWT |
 | GET | `/pdf/general` | PDF de reporte general | JWT |
+
+### 8. Gestión de Usuarios (Solo Admin)
+
+| Método | Endpoint | Descripción | Autenticación |
+|--------|----------|-------------|---------------|
+| GET | `/usuarios` | Listar todos los usuarios | JWT + Admin |
+| GET | `/usuarios/:id` | Ver detalle de usuario | JWT + Admin |
+| POST | `/usuarios` | Crear nuevo usuario | JWT + Admin |
+| PUT | `/usuarios/:id` | Actualizar usuario (Rol, Pass, Datos) | JWT + Admin |
+| DELETE | `/usuarios/:id` | Eliminar usuario | JWT + Admin |
 
 Los PDFs se generan automáticamente y se descargan en el navegador.
 

@@ -10,8 +10,10 @@
  * /auth/register:
  *   post:
  *     summary: Registrar un nuevo usuario
- *     description: Crea una nueva cuenta de usuario en el sistema (admin u operador)
+ *     description: Crea una nueva cuenta de usuario en el sistema (admin u operador). Solo administradores pueden crear nuevos usuarios.
  *     tags: [Auth]
+ *     security:
+ *       - bearerAuth: []
  *     requestBody:
  *       required: true
  *       content:
@@ -73,6 +75,10 @@
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/Error'
+ *       401:
+ *         description: No autorizado - Token inválido o ausente
+ *       403:
+ *         description: Acceso denegado - Solo administradores pueden crear usuarios
  *       500:
  *         description: Error interno del servidor
  *
@@ -132,10 +138,14 @@ import { Router } from "express";
 import { register, login } from "../controllers/auth.controller.js";
 import { registroValidator, loginValidator } from "../validators/auth.validator.js";
 import { handleValidation } from "../middlewares/handleValidation.js";
+import { authenticate, authorize } from "../middlewares/auth.middleware.js";
 
 const router = Router();
 
-router.post("/register", registroValidator, handleValidation, register);
+// Solo administradores pueden registrar nuevos usuarios
+router.post("/register", authenticate, authorize(["admin"]), registroValidator, handleValidation, register);
+
+// Login es público
 router.post("/login", loginValidator, handleValidation, login);
 
 export default router;
