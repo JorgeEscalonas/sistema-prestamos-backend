@@ -1,5 +1,5 @@
 // src/controllers/cliente.controller.js
-import { Cliente } from "../models/index.js";
+import { Cliente, Prestamo } from "../models/index.js";
 
 //crear cliente 
 export const crearCliente = async (req, res, next) => {
@@ -83,6 +83,27 @@ export const eliminarCliente = async (req, res, next) => {
     await cliente.destroy();
 
     return res.status(200).json({ message: "Cliente eliminado correctamente." });
+  } catch (err) {
+    next(err);
+  }
+}
+
+// Obtener préstamos de un cliente
+export const obtenerPrestamosCliente = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+
+    const cliente = await Cliente.findByPk(id);
+    if (!cliente) {
+      return res.status(404).json({ message: "Cliente no encontrado." });
+    }
+
+    const prestamos = await Prestamo.findAll({
+      where: { clienteId: id },
+      order: [["createdAt", "DESC"]],
+    });
+
+    return res.status(200).json(prestamos);
   } catch (err) {
     next(err);
   }

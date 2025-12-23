@@ -130,6 +130,9 @@
  *       500:
  *         description: Error interno del servidor
  *
+ *       500:
+ *         description: Error interno del servidor
+ *
  *   delete:
  *     summary: Eliminar un cliente
  *     description: Elimina un cliente del sistema (solo si no tiene préstamos asociados)
@@ -161,6 +164,36 @@
  *         description: Cliente no encontrado
  *       500:
  *         description: Error interno del servidor
+ *
+ *   get:
+ *     summary: Obtener préstamos de un cliente
+ *     description: Lista todos los préstamos asociados a un cliente específico
+ *     tags: [Clientes]
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID del cliente
+ *         example: 1
+ *     responses:
+ *       200:
+ *         description: Lista de préstamos obtenida exitosamente
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Prestamo'
+ *       401:
+ *         description: No autorizado - Token inválido o ausente
+ *       404:
+ *         description: Cliente no encontrado
+ *       500:
+ *         description: Error interno del servidor
  */
 
 
@@ -169,7 +202,8 @@ import {
   crearCliente,
   obtenerClientes,
   editarCliente,
-  eliminarCliente
+  eliminarCliente,
+  obtenerPrestamosCliente
 } from "../controllers/cliente.controller.js";
 import { clienteValidator } from "../validators/cliente.validator.js";
 import { handleValidation } from "../middlewares/handleValidation.js";
@@ -183,5 +217,6 @@ router.post("/", clienteValidator, handleValidation, crearCliente);
 router.get("/", obtenerClientes);
 router.put("/:id", clienteValidator, handleValidation, editarCliente);
 router.delete("/:id", eliminarCliente);
+router.get("/:id/prestamos", obtenerPrestamosCliente);
 
 export default router;
