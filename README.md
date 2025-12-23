@@ -136,6 +136,7 @@ DB_PORT=3306
 
 # JWT
 JWT_SECRET=tu_secreto_super_seguro_aqui
+JWT_EXPIRES_IN=24h # Clave opcional, por defecto es 24h
 
 # Servidor
 PORT=4000
@@ -160,6 +161,7 @@ El servidor estará disponible en `http://localhost:4000`
 ## Endpoints Principales
 
 ### Base URL
+
 ```
 http://localhost:4000/api
 ```
@@ -172,6 +174,7 @@ http://localhost:4000/api
 | POST | `/auth/login` | Iniciar sesión y obtener token JWT | No |
 
 **Ejemplo de registro:**
+
 ```json
 POST /api/auth/register
 {
@@ -183,6 +186,7 @@ POST /api/auth/register
 ```
 
 **Ejemplo de login:**
+
 ```json
 POST /api/auth/login
 {
@@ -199,8 +203,10 @@ POST /api/auth/login
 | GET | `/clientes` | Listar todos los clientes | JWT |
 | PUT | `/clientes/:id` | Actualizar cliente | JWT |
 | DELETE | `/clientes/:id` | Eliminar cliente | JWT |
+| GET | `/clientes/:id/prestamos` | Obtener préstamos de un cliente | JWT |
 
 **Ejemplo de creación:**
+
 ```json
 POST /api/clientes
 {
@@ -219,6 +225,7 @@ POST /api/clientes
 | PUT | `/tasas/:id` | Actualizar tasa | JWT |
 
 **Ejemplo:**
+
 ```json
 POST /api/tasas
 {
@@ -237,11 +244,13 @@ POST /api/tasas
 | DELETE | `/prestamos/:id` | Eliminar préstamo | JWT |
 
 **Reglas automáticas:**
+
 - Cálculo automático de monto total (capital + intereses)
 - Control de saldo pendiente
 - Estado cambia automáticamente a "pagado" cuando el saldo llega a cero
 
 **Ejemplo:**
+
 ```json
 POST /api/prestamos
 {
@@ -264,11 +273,13 @@ POST /api/prestamos
 | DELETE | `/pagos/:id` | Eliminar pago | JWT |
 
 **Reglas:**
+
 - Recálculo automático del saldo restante
 - Actualización automática del estado del préstamo
 - Validación de que el monto no exceda el saldo pendiente
 
 **Ejemplo:**
+
 ```json
 POST /api/pagos
 {
@@ -317,6 +328,7 @@ Se utiliza `express-validator` para garantizar la integridad de los datos:
 - **IDs** existentes en la base de datos
 
 **Ejemplo de validación:**
+
 ```javascript
 body("montoPrestado")
   .isFloat({ min: 1 })
@@ -352,6 +364,7 @@ Authorization: Bearer <tu_token_jwt>
 ```
 
 **Ejemplo con curl:**
+
 ```bash
 curl -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
      http://localhost:4000/api/clientes
@@ -366,13 +379,14 @@ http://localhost:4000/api-docs
 ```
 
 La documentación incluye:
+
 - Todos los endpoints organizados por tags
 - Schemas de todos los modelos
 - Ejemplos de request y response
 - Posibilidad de probar los endpoints directamente desde el navegador
 - Autenticación JWT integrada (botón "Authorize")
 
-### Cómo usar Swagger UI:
+### Cómo usar Swagger UI
 
 1. Accede a `http://localhost:4000/api-docs`
 2. Haz login en `/auth/login` para obtener tu token
@@ -390,6 +404,7 @@ La documentación incluye:
 ## Modelos de Base de Datos
 
 ### Usuario
+
 - `id` (PK)
 - `nombre`
 - `cedula` (UNIQUE)
@@ -397,17 +412,20 @@ La documentación incluye:
 - `rol` (admin, operador)
 
 ### Cliente
+
 - `id` (PK)
 - `nombre`
 - `cedula` (UNIQUE)
 - `telefono`
 
 ### Tasa
+
 - `id` (PK)
 - `valor`
 - `fecha`
 
 ### Prestamo
+
 - `id` (PK)
 - `clienteId` (FK)
 - `montoPrestado`
@@ -419,6 +437,7 @@ La documentación incluye:
 - `fechaRegistro`
 
 ### Pago
+
 - `id` (PK)
 - `prestamoId` (FK)
 - `monto`
