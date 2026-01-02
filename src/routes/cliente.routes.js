@@ -130,9 +130,6 @@
  *       500:
  *         description: Error interno del servidor
  *
- *       500:
- *         description: Error interno del servidor
- *
  *   delete:
  *     summary: Eliminar un cliente
  *     description: Elimina un cliente del sistema (solo si no tiene préstamos asociados)
@@ -165,6 +162,7 @@
  *       500:
  *         description: Error interno del servidor
  *
+ * /clientes/{id}/prestamos:
  *   get:
  *     summary: Obtener préstamos de un cliente
  *     description: Lista todos los préstamos asociados a un cliente específico
