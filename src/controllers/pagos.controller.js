@@ -70,8 +70,11 @@ export const obtenerPagosPorPrestamo = async (req, res) => {
 // Obtener todos los pagos
 export const obtenerTodosPagos = async (req, res) => {
   try {
+    const { limit } = req.query;
+
     const pagos = await Pago.findAll({
       order: [["fechaPago", "DESC"]],
+      limit: limit ? parseInt(limit) : undefined,
     });
 
     return res.json(pagos);

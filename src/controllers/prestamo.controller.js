@@ -1,5 +1,5 @@
 // src/controllers/prestamo.controller.js
-import { Prestamo, Cliente, Tasa } from "../models/index.js";
+import { Prestamo, Cliente } from "../models/index.js";
 
 // Crear préstamo
 export const crearPrestamo = async (req, res, next) => {
@@ -15,16 +15,6 @@ export const crearPrestamo = async (req, res, next) => {
       return res.status(404).json({ message: "Cliente no encontrado." });
     }
 
-    // Conseguir la tasa más reciente
-    const tasa = await Tasa.findOne({
-      order: [["fecha", "DESC"]]
-    });
-    if (!tasa) {
-      return res.status(400).json({ message: "No hay tasa registrada en el sistema." });
-    }
-
-    const tasaValor = tasa.valor;
-
     // Cálculo de intereses
     const montoTotal = montoPrestado + (montoPrestado * (porcentaje / 100));
 
@@ -35,7 +25,6 @@ export const crearPrestamo = async (req, res, next) => {
       montoTotal,
       saldoPendiente: montoTotal,
       estado: "pendiente",
-      tasaUsada: tasaValor // debes agregar este campo a tu modelo
     });
 
     return res.status(201).json({
@@ -61,8 +50,10 @@ export const obtenerPrestamos = async (req, res, next) => {
         order: [["createdAt", "DESC"]],
       });
     } else {
+      const { limit } = req.query;
       prestamos = await Prestamo.findAll({
         order: [["createdAt", "DESC"]],
+        limit: limit ? parseInt(limit) : undefined,
       });
     }
 

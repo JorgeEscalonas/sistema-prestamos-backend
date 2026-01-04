@@ -24,7 +24,6 @@
  *               - clienteId
  *               - montoPrestado
  *               - porcentaje
- *               - tasaId
  *             properties:
  *               clienteId:
  *                 type: integer
@@ -40,10 +39,7 @@
  *                 format: float
  *                 description: Porcentaje de interés a aplicar
  *                 example: 10.5
- *               tasaId:
- *                 type: integer
- *                 description: ID de la tasa del dólar a utilizar
- *                 example: 1
+
  *     responses:
  *       201:
  *         description: Préstamo creado exitosamente
@@ -76,6 +72,13 @@
  *     tags: [Prestamos]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: Número máximo de préstamos a retornar (opcional)
+ *         example: 5
  *     responses:
  *       200:
  *         description: Lista de préstamos obtenida exitosamente

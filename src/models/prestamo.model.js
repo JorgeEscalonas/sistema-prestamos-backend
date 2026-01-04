@@ -9,7 +9,6 @@ const Prestamo = sequelize.define(
     porcentaje: { type: DataTypes.FLOAT, allowNull: false },
     montoTotal: { type: DataTypes.FLOAT, allowNull: false }, // monto + intereses
     saldoPendiente: { type: DataTypes.FLOAT, allowNull: false },
-    tasaUsada: { type: DataTypes.FLOAT, allowNull: false },
     estado: {
       type: DataTypes.ENUM("pendiente", "pagado"),
       defaultValue: "pendiente",
