@@ -70,6 +70,13 @@
  *     tags: [Pagos]
  *     security:
  *       - bearerAuth: []
+ *     parameters:
+ *       - in: query
+ *         name: limit
+ *         schema:
+ *           type: integer
+ *         description: Número máximo de pagos a retornar (opcional)
+ *         example: 5
  *     responses:
  *       200:
  *         description: Lista de pagos obtenida exitosamente

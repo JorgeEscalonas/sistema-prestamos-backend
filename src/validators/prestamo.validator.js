@@ -10,7 +10,4 @@ export const prestamoValidator = [
   body("porcentaje")
     .notEmpty().withMessage("El porcentaje es obligatorio.")
     .isFloat({ gt: 0 }).withMessage("El porcentaje debe ser mayor a 0."),
-  body("tasaId")
-    .notEmpty().withMessage("La tasa es obligatoria.")
-    .isNumeric().withMessage("El ID de la tasa debe ser numérico."),
 ];

@@ -2,76 +2,85 @@
  * @swagger
  * tags:
  *   name: PDF
- *   description: Generación de reportes en PDF
+ *   description: Endpoints para la generación y descarga de reportes ejecutivos en formato PDF.
  */
 
 /**
  * @swagger
  * /pdf/pendientes:
  *   get:
- *     summary: Generar PDF de préstamos pendientes
- *     description: Genera un reporte en PDF con todos los préstamos que tienen saldo pendiente
+ *     summary: Reporte de Préstamos Pendientes
+ *     description: >
+ *       Genera y descarga un documento PDF que lista todos los préstamos activos con saldo pendiente.
+ *       Incluye detalles del cliente, monto original otorgado, saldo actual por cobrar y fechas de registro.
+ *       Ideal para gestión de cobranza y auditoría de cuentas por cobrar.
  *     tags: [PDF]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: PDF generado exitosamente
+ *         description: Archivo PDF generado exitosamente. La descarga comienza automáticamente.
  *         content:
  *           application/pdf:
  *             schema:
  *               type: string
  *               format: binary
  *       401:
- *         description: No autorizado - Token inválido o ausente
+ *         description: Acceso denegado. Token de autenticación inválido o ausente.
  *       500:
- *         description: Error al generar el PDF
+ *         description: Error interno del servidor al intentar generar el reporte.
  */
 
 /**
  * @swagger
  * /pdf/pagados:
  *   get:
- *     summary: Generar PDF de préstamos pagados
- *     description: Genera un reporte en PDF con todos los préstamos completamente pagados
+ *     summary: Reporte de Préstamos Pagados
+ *     description: >
+ *       Genera y descarga un documento PDF con el historial completo de préstamos finalizados (pagados en su totalidad).
+ *       Muestra el monto original, el total recaudado y las fechas de liquidación.
+ *       Útil para control de ingresos y cierres de caja históricos.
  *     tags: [PDF]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: PDF generado exitosamente
+ *         description: Archivo PDF generado exitosamente.
  *         content:
  *           application/pdf:
  *             schema:
  *               type: string
  *               format: binary
  *       401:
- *         description: No autorizado - Token inválido o ausente
+ *         description: Acceso denegado. Token de autenticación inválido o ausente.
  *       500:
- *         description: Error al generar el PDF
+ *         description: Error interno del servidor al intentar generar el reporte.
  */
 
 /**
  * @swagger
  * /pdf/general:
  *   get:
- *     summary: Generar PDF de reporte general
- *     description: Genera un reporte en PDF con todos los préstamos del sistema (pendientes y pagados)
+ *     summary: Resumen General y Estadísticas del Sistema
+ *     description: >
+ *       Genera un reporte ejecutivo "Dashboard" en PDF.
+ *       Presenta métricas clave del negocio: cantidad total de préstamos, comparación de pendientes vs pagados,
+ *       capital total prestado y saldo total pendiente de recuperación.
  *     tags: [PDF]
  *     security:
  *       - bearerAuth: []
  *     responses:
  *       200:
- *         description: PDF generado exitosamente
+ *         description: Resumen ejecutivo generado exitosamente.
  *         content:
  *           application/pdf:
  *             schema:
  *               type: string
  *               format: binary
  *       401:
- *         description: No autorizado - Token inválido o ausente
+ *         description: Acceso denegado. Token de autenticación inválido o ausente.
  *       500:
- *         description: Error al generar el PDF
+ *         description: Error interno del servidor al intentar generar el resumen.
  */
 
 import { Router } from "express";

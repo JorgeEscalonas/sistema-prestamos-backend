@@ -70,11 +70,7 @@
  *           format: float
  *           description: Saldo pendiente por pagar
  *           example: 500.00
- *         tasaUsada:
- *           type: number
- *           format: float
- *           description: Tasa del dólar usada en el momento del préstamo
- *           example: 36.50
+
  *         estado:
  *           type: string
  *           enum: [pendiente, pagado]
